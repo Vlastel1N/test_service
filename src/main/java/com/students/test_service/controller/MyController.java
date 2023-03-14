@@ -1,6 +1,8 @@
 package com.students.test_service.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,13 @@ import javax.validation.Valid;
 @Slf4j
 @RestController
 public class MyController {
+
+    private final MyModifyService myModifyService;
+
+    @Autowired
+    public MyController(@Qualifier("ModifyErrorMessage") MyModifyService myModifyService) {
+        this.myModifyService = myModifyService;
+    }
 
     @PostMapping(value = "/feedback")
     public ResponseEntity<Response> feedback(@RequestBody Request request) {
